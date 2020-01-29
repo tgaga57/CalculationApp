@@ -53,24 +53,25 @@ class ViewController: UIViewController,UITextFieldDelegate {
         var annualInterest: Int? = Int(annualInterestTextField.text!)
         var years: Int? = Int(yearsTextfield.text!)
         
-        // 合計金額の表示
-        capitalMoney2.text =  String(capital! * years!)
-        print(capitalMoney2.text!)
         
+        // 合計金額の表示
+        if capitalMoneyTextField.text == nil || yearsTextfield.text == nil {
+            createAlert(title: "数字を入力してください", message: "もう一度お願いします")
+            
+            print("error")
+        } else {
+            capitalMoney2.text =  String(capital! * years!)
+                   print(capitalMoney2.text!)
+                   
+        }
+    
     }
     
     // キャンセルボタン
     @IBAction func chancel(_ sender: Any) {
         
-        // 全て初期化
-        capitalMoneyTextField.text = ""
-        depositTextField.text = ""
-        annualInterestTextField.text = ""
-        yearsTextfield.text = ""
-        sum.text = ""
-        capitalMoney2.text = ""
-        interestSum.text = ""
-        
+        // リセットを呼び出し
+        reset()
     }
     
     //テキストフィールドでリターンが押されたときに通知され起動するメソッド
@@ -97,5 +98,16 @@ class ViewController: UIViewController,UITextFieldDelegate {
         
     }
     
+    
+    func reset()  {
+        // 全て初期化
+              capitalMoneyTextField.text = ""
+              depositTextField.text = ""
+              annualInterestTextField.text = ""
+              yearsTextfield.text = ""
+              sum.text = ""
+              capitalMoney2.text = ""
+              interestSum.text = ""
+    }
     
 }
