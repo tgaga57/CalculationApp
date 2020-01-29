@@ -35,13 +35,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
         capitalMoney2.text = ""
         interestSum.text = ""
         
-        // textfieldの文字をint型に変換
-        var capital: Int? = Int(capitalMoneyTextField.text!)
-        var deposite: Int? = Int(depositTextField.text!)
-        var annualInterest: Int? = Int(annualInterestTextField.text!)
-        var years: Int? = Int(yearsTextfield.text!)
-        
-        
+//        // textfieldの文字をint型に変換
+//        var capital: Int? = Int(capitalMoneyTextField.text!)
+//        var deposite: Int? = Int(depositTextField.text!)
+//        var annualInterest: Int? = Int(annualInterestTextField.text!)
+//        var years: Int? = Int(yearsTextfield.text!)
+//
+//
         // delegateの設定
         self.capitalMoneyTextField.delegate = self
         self.depositTextField.delegate = self
@@ -53,15 +53,26 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     // 計算ボタン
     @IBAction func calculation(_ sender: Any) {
-        
-        
+         // textfieldの文字をint型に変換
+         var capital: Int? = Int(capitalMoneyTextField.text!)
+         var deposite: Int? = Int(depositTextField.text!)
+         var annualInterest: Int? = Int(annualInterestTextField.text!)
+         var years: Int? = Int(yearsTextfield.text!)
+         
+        // 合計金額の表示
+        sum.text =  String(capital! * years!)
+        print(sum.text!)
     }
     
     // キャンセルボタン
     @IBAction func chancel(_ sender: Any) {
+        
+        
+        
     }
     //テキストフィールドでリターンが押されたときに通知され起動するメソッド
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
         return true
   }
 
