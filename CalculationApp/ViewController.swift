@@ -29,6 +29,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
     var moneySum = 0
     var capitalmoneySum = 0
     var intetSum = 0
+    var xNum: Double = 0
+    var yNum: Double = 0
+    var interestRateSum: Double = 0
+    var allSum: Int = 0
     
     // アラート用
     var alertController:UIAlertController!
@@ -67,39 +71,54 @@ class ViewController: UIViewController,UITextFieldDelegate {
             return false
         }
         
-        
     }
-    
     
     
     // 計算ボタン
     @IBAction func calculation(_ sender: Any) {
         
         // textfieldの文字をint型に変換
-        let capital: Int! = Int(capitalMoneyTextField.text!)
-        let deposite: Int! = Int(depositTextField.text!)
-        let annualInterest: Int! = Int(annualInterestTextField.text!)
-        let years: Int! = Int(yearsTextfield.text!)
+        var capital: Int! = Int(capitalMoneyTextField.text!)
+        var deposite: Int! = Int(depositTextField.text!)
+        var annualInterest: Double! = Double(annualInterestTextField.text!)
+        var years: Double! = Double(yearsTextfield.text!)
         
         // nilが全ての場合
         if capital == nil && deposite == nil && annualInterest == nil && years == nil {
             
-            createAlert(title: "nil", message: "もう一度お願いします")
+            createAlert(title: "正しく数字が入力されていません", message: "もう一度お願いします")
             
             reset()
             
         } else if capital == nil || deposite == nil || annualInterest == nil || years == nil{ // nilが一つでもある場合
             
-            createAlert(title: "nil", message: "もう一度お願いします")
+            createAlert(title: "正しく数字が入力されていません", message: "もう一度お願いします")
             
             reset()
             
-            
         } else {
             
-            capitalmoneySum = capital * (deposite * 12 * years)
+            // 元金の合計
+            capitalmoneySum = capital + (deposite * 12 * Int(years))
             capitalMoney2.text = String(capitalmoneySum)
             
+            // 利息金額の合計
+            // ％のため100で割ったあげる
+            annualInterest = annualInterest / 100
+            
+            xNum = 1 + annualInterest
+            print(xNum)
+            // 累乗
+            yNum = pow(xNum, years)
+            print(yNum)
+            
+            interestRateSum = Double(capital) * (yNum)
+            print(interestRateSum)
+            interestSum.text = String(round(interestRateSum))
+            
+            // 合計金額
+            allSum = capitalmoneySum + Int(round(interestRateSum))
+            sum.text = String(allSum)
             
         }
         
