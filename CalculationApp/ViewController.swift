@@ -26,6 +26,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
     // 利息の合計
     @IBOutlet weak var interestSum: UILabel!
     
+    var moneySum = 0
+    var capitalmoneySum = 0
+    var intetSum = 0
+    
     // アラート用
     var alertController:UIAlertController!
     
@@ -36,10 +40,6 @@ class ViewController: UIViewController,UITextFieldDelegate {
         sum.text = ""
         capitalMoney2.text = ""
         interestSum.text = ""
-        capitalMoneyTextField.text = ""
-        depositTextField.text = ""
-        annualInterestTextField.text = ""
-        yearsTextfield.text = ""
         
         // delegateの設定
         self.capitalMoneyTextField.delegate = self
@@ -47,16 +47,9 @@ class ViewController: UIViewController,UITextFieldDelegate {
         self.annualInterestTextField.delegate = self
         self.yearsTextfield.delegate = self
         
-        print(sum.text)
-        print(capitalMoney2.text)
-        print(interestSum.text)
-        print(capitalMoneyTextField.text)
-        print(annualInterestTextField.text)
-        print(yearsTextfield.text)
     }
     
     // 数字入力しかできないようにする
-    // 文字数の制限
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 0から9までの数字しか許さない
         let allowedCharacters = "0123456789"
@@ -65,83 +58,100 @@ class ViewController: UIViewController,UITextFieldDelegate {
         // String型
         let typedCharacterSet = CharacterSet(charactersIn: string)
         
+        // 入力を反映させたテキストを取得する
+        // 文字数の制限
         let resultText: String = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        
-        // textfieldの数をとって桁数が15以上にならないようにする
-        if resultText.count <= 15 {
-            
-            print(resultText.count)
-            
+        if resultText.count <= 14 {
             return charactersSet.isSuperset(of: typedCharacterSet)
-            
+        } else {
+            return false
         }
         
-        return false
+        
     }
+    
     
     
     // 計算ボタン
     @IBAction func calculation(_ sender: Any) {
         
         // textfieldの文字をint型に変換
-        var capital: Int? = Int(capitalMoneyTextField.text!)
-        var deposite: Int? = Int(depositTextField.text!)
-        var annualInterest: Int? = Int(annualInterestTextField.text!)
-        var years: Int? = Int(yearsTextfield.text!)
+        let capital: Int! = Int(capitalMoneyTextField.text!)
+        let deposite: Int! = Int(depositTextField.text!)
+        let annualInterest: Int! = Int(annualInterestTextField.text!)
+        let years: Int! = Int(yearsTextfield.text!)
         
-        if capitalMoneyTextField.text == "" || depositTextField.text == "" || annualInterestTextField.text == "" || yearsTextfield.text == ""{
+        // nilが全ての場合
+        if capital == nil && deposite == nil && annualInterest == nil && years == nil {
             
-            createAlert(title: "", message: <#T##String#>)
+            createAlert(title: "nil", message: "もう一度お願いします")
+            
+            reset()
+            
+        } else if capital == nil || deposite == nil || annualInterest == nil || years == nil{ // nilが一つでもある場合
+            
+            createAlert(title: "nil", message: "もう一度お願いします")
+            
             reset()
             
             
+        } else {
             
-    }
-    
-    }
-    // キャンセルボタン
-    @IBAction func chancel(_ sender: Any) {
-        
-        // リセットを呼び出し
-        reset()
-    }
-    
-    //テキストフィールドでリターンが押されたときに通知され起動するメソッド
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
-    // テキストフィールド以外を触った時にキーボードを消す
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    
-    //  アラートの生成
-    // 引数に自分でアラートの文字を入れることができる
-    func createAlert(title:String,message:String) {
-        
-        alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        present(alertController,animated: true)
+            capitalmoneySum = capital * (deposite * 12 * years)
+            capitalMoney2.text = String(capitalmoneySum)
+            
+            
+        }
         
     }
     
     
-    func reset()  {
-        // 全て初期化
-        capitalMoneyTextField.text = ""
-        depositTextField.text = ""
-        annualInterestTextField.text = ""
-        yearsTextfield.text = ""
-        sum.text = ""
-        capitalMoney2.text = ""
-        interestSum.text = ""
-    }
-    
+        // キャンセルボタン
+        @IBAction func chancel(_ sender: Any) {
+            
+            // リセットを呼び出し
+            reset()
+        }
+        
+        //テキストフィールドでリターンが押されたときに通知され起動するメソッド
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            self.view.endEditing(true)
+            return true
+        }
+        
+        // テキストフィールド以外を触った時にキーボードを消す
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            self.view.endEditing(true)
+        }
+        
+        
+        //  アラートの生成
+        // 引数に自分でアラートの文字を入れることができる
+        func createAlert(title:String,message:String) {
+            
+            alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            present(alertController,animated: true)
+            
+        }
+        
+        
+        func reset()  {
+            // 全て初期化
+            capitalMoneyTextField.text = ""
+            depositTextField.text = ""
+            annualInterestTextField.text = ""
+            yearsTextfield.text = ""
+            sum.text = ""
+            capitalMoney2.text = ""
+            interestSum.text = ""
+        }
+        
+        
+        
+        
 }
 
 
