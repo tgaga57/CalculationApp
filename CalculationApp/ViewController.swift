@@ -25,7 +25,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var capitalMoney2: UILabel!
     // 利息の合計
     @IBOutlet weak var interestSum: UILabel!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,33 +48,27 @@ class ViewController: UIViewController,UITextFieldDelegate {
         self.annualInterestTextField.delegate = self
         self.yearsTextfield.delegate = self
         
-        print()
     }
-    
-    
-    
-    
-    
-    
-    @IBAction func calculation(_ sender: Any) {
-         
 
-        
-        
+    
+    // 計算ボタン
+    @IBAction func calculation(_ sender: Any) {
         
         
     }
     
-    
-    
+    // キャンセルボタン
     @IBAction func chancel(_ sender: Any) {
     }
-    
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        return
-//  }
-//
+    //テキストフィールドでリターンが押されたときに通知され起動するメソッド
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+  }
 
+    // テキストフィールド以外を触った時にキーボードを消す
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
 
