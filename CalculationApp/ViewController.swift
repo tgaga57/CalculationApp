@@ -9,16 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController,UITextFieldDelegate {
-
-    // 元金
-    @IBOutlet weak var capitalMoney: UITextField!
-    // 積立金
-    @IBOutlet weak var deposit: UITextField!
-    // 年利
-    @IBOutlet weak var annualInterest: UITextField!
-    // 運用年数
-    @IBOutlet weak var years: UITextField!
     
+    // 元金
+    @IBOutlet weak var capitalMoneyTextField: UITextField!
+    // 積立金
+    @IBOutlet weak var depositTextField: UITextField!
+    // 年利
+    @IBOutlet weak var annualInterestTextField: UITextField!
+    // 運用年数
+    @IBOutlet weak var yearsTextfield: UITextField!
     
     // 合計金額
     @IBOutlet weak var sum: UILabel!
@@ -26,24 +25,40 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var capitalMoney2: UILabel!
     // 利息の合計
     @IBOutlet weak var interestSum: UILabel!
-    
-    var capital:Int? = Int(capitalMoney.text ?? )
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        self.sum.text = ""
-        self.capitalMoney2.text = ""
-        self.interestSum.text = ""
+        
+       // 最初は文字がはいっていないようにした
+        sum.text = ""
+        capitalMoney2.text = ""
+        interestSum.text = ""
+        
+        // textfieldの文字をint型に変換
+        var capital: Int? = Int(capitalMoneyTextField.text!)
+        var deposite: Int? = Int(depositTextField.text!)
+        var annualInterest: Int? = Int(annualInterestTextField.text!)
+        var years: Int? = Int(yearsTextfield.text!)
+        
+        
+        // delegateの設定
+        self.capitalMoneyTextField.delegate = self
+        self.depositTextField.delegate = self
+        self.annualInterestTextField.delegate = self
+        self.yearsTextfield.delegate = self
+        
+        print()
     }
-
+    
+    
     
     
     
     
     @IBAction func calculation(_ sender: Any) {
-        
+         
+
         
         
         
@@ -55,11 +70,11 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBAction func chancel(_ sender: Any) {
     }
     
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return
-    }
-    
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        return
+//  }
+//
 
 }
 

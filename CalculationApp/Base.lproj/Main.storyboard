@@ -215,13 +215,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="annualInterest" destination="vEy-Ob-uld" id="ngm-sr-Ttj"/>
-                        <outlet property="capitalMoney" destination="7Pi-R5-PTE" id="wSX-Rk-DkO"/>
+                        <outlet property="annualInterestTextField" destination="vEy-Ob-uld" id="ngm-sr-Ttj"/>
                         <outlet property="capitalMoney2" destination="9Qn-V4-bj8" id="IXf-Hs-zRO"/>
-                        <outlet property="deposit" destination="YNz-Le-SDf" id="oDm-9i-g0P"/>
+                        <outlet property="capitalMoneyTextField" destination="7Pi-R5-PTE" id="wSX-Rk-DkO"/>
+                        <outlet property="depositTextField" destination="YNz-Le-SDf" id="oDm-9i-g0P"/>
                         <outlet property="interestSum" destination="Osl-DI-vwr" id="8Cq-8J-yoc"/>
                         <outlet property="sum" destination="zrh-EN-tWj" id="00M-Ry-670"/>
-                        <outlet property="years" destination="tgJ-uy-2Jk" id="0vi-JD-AEk"/>
+                        <outlet property="yearsTextfield" destination="tgJ-uy-2Jk" id="0vi-JD-AEk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
