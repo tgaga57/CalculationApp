@@ -26,22 +26,16 @@ class ViewController: UIViewController,UITextFieldDelegate {
     // 利息の合計
     @IBOutlet weak var interestSum: UILabel!
     
+    var alertController:UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // 最初は文字がはいっていないようにした
+        // 最初は文字がはいっていないようにした
         sum.text = ""
         capitalMoney2.text = ""
         interestSum.text = ""
         
-//        // textfieldの文字をint型に変換
-//        var capital: Int? = Int(capitalMoneyTextField.text!)
-//        var deposite: Int? = Int(depositTextField.text!)
-//        var annualInterest: Int? = Int(annualInterestTextField.text!)
-//        var years: Int? = Int(yearsTextfield.text!)
-//
-//
         // delegateの設定
         self.capitalMoneyTextField.delegate = self
         self.depositTextField.delegate = self
@@ -49,37 +43,59 @@ class ViewController: UIViewController,UITextFieldDelegate {
         self.yearsTextfield.delegate = self
         
     }
-
+    
     
     // 計算ボタン
     @IBAction func calculation(_ sender: Any) {
-         // textfieldの文字をint型に変換
-         var capital: Int? = Int(capitalMoneyTextField.text!)
-         var deposite: Int? = Int(depositTextField.text!)
-         var annualInterest: Int? = Int(annualInterestTextField.text!)
-         var years: Int? = Int(yearsTextfield.text!)
-         
+        // textfieldの文字をint型に変換
+        var capital: Int? = Int(capitalMoneyTextField.text!)
+        var deposite: Int? = Int(depositTextField.text!)
+        var annualInterest: Int? = Int(annualInterestTextField.text!)
+        var years: Int? = Int(yearsTextfield.text!)
+        
         // 合計金額の表示
-        sum.text =  String(capital! * years!)
-        print(sum.text!)
+        capitalMoney2.text =  String(capital! * years!)
+        print(capitalMoney2.text!)
+        
     }
     
     // キャンセルボタン
     @IBAction func chancel(_ sender: Any) {
         
-        
+        // 全て初期化
+        capitalMoneyTextField.text = ""
+        depositTextField.text = ""
+        annualInterestTextField.text = ""
+        yearsTextfield.text = ""
+        sum.text = ""
+        capitalMoney2.text = ""
+        interestSum.text = ""
         
     }
+    
     //テキストフィールドでリターンが押されたときに通知され起動するメソッド
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
-  }
-
+    }
+    
     // テキストフィールド以外を触った時にキーボードを消す
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
+    
+    //  アラートの生成
+    // 引数に自分でアラートの文字を入れることができる
+    func createAlert(title:String,message:String) {
+        
+        alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alertController,animated: true)
+        
+    }
+    
+    
 }
-
