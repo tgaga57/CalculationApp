@@ -26,15 +26,20 @@ class ViewController: UIViewController,UITextFieldDelegate {
     // 利息の合計
     @IBOutlet weak var interestSum: UILabel!
     
+    // アラート用
     var alertController:UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 最初は文字がはいっていないようにした
+        // 何もはいっていない
         sum.text = ""
         capitalMoney2.text = ""
         interestSum.text = ""
+        capitalMoneyTextField.text = ""
+        depositTextField.text = ""
+        annualInterestTextField.text = ""
+        yearsTextfield.text = ""
         
         // delegateの設定
         self.capitalMoneyTextField.delegate = self
@@ -42,31 +47,58 @@ class ViewController: UIViewController,UITextFieldDelegate {
         self.annualInterestTextField.delegate = self
         self.yearsTextfield.delegate = self
         
+        print(sum.text)
+        print(capitalMoney2.text)
+        print(interestSum.text)
+        print(capitalMoneyTextField.text)
+        print(annualInterestTextField.text)
+        print(yearsTextfield.text)
+    }
+    
+    // 数字入力しかできないようにする
+    // 文字数の制限
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 0から9までの数字しか許さない
+        let allowedCharacters = "0123456789"
+        // この中にallowedChraracrtesを入れる
+        let charactersSet = CharacterSet(charactersIn: allowedCharacters)
+        // String型
+        let typedCharacterSet = CharacterSet(charactersIn: string)
+        
+        let resultText: String = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        // textfieldの数をとって桁数が15以上にならないようにする
+        if resultText.count <= 15 {
+            
+            print(resultText.count)
+            
+            return charactersSet.isSuperset(of: typedCharacterSet)
+            
+        }
+        
+        return false
     }
     
     
     // 計算ボタン
     @IBAction func calculation(_ sender: Any) {
+        
         // textfieldの文字をint型に変換
         var capital: Int? = Int(capitalMoneyTextField.text!)
         var deposite: Int? = Int(depositTextField.text!)
         var annualInterest: Int? = Int(annualInterestTextField.text!)
         var years: Int? = Int(yearsTextfield.text!)
         
-        
-        // 合計金額の表示
-        if capitalMoneyTextField.text == nil || yearsTextfield.text == nil {
-            createAlert(title: "数字を入力してください", message: "もう一度お願いします")
+        if capitalMoneyTextField.text == "" || depositTextField.text == "" || annualInterestTextField.text == "" || yearsTextfield.text == ""{
             
-            print("error")
-        } else {
-            capitalMoney2.text =  String(capital! * years!)
-                   print(capitalMoney2.text!)
-                   
-        }
-    
+            createAlert(title: "", message: <#T##String#>)
+            reset()
+            
+            
+            
     }
     
+    }
     // キャンセルボタン
     @IBAction func chancel(_ sender: Any) {
         
@@ -101,13 +133,15 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     func reset()  {
         // 全て初期化
-              capitalMoneyTextField.text = ""
-              depositTextField.text = ""
-              annualInterestTextField.text = ""
-              yearsTextfield.text = ""
-              sum.text = ""
-              capitalMoney2.text = ""
-              interestSum.text = ""
+        capitalMoneyTextField.text = ""
+        depositTextField.text = ""
+        annualInterestTextField.text = ""
+        yearsTextfield.text = ""
+        sum.text = ""
+        capitalMoney2.text = ""
+        interestSum.text = ""
     }
     
 }
+
+

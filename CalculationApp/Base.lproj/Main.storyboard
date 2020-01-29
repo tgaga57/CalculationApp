@@ -207,7 +207,7 @@
                                     <color key="titleShadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="chancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6dl-yg-3lh"/>
+                                    <action selector="chancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v52-fe-Cyw"/>
                                 </connections>
                             </button>
                         </subviews>
